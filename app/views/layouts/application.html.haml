@@ -1,0 +1,30 @@
+!!!
+%html{ :lang=>"en", "ng-app"=>"todomvc", "data-framework"=>"angularjs" }
+  %head
+    %meta{ :charset=>'utf-8' }
+    %title= content_for?(:title) ? yield(:title) : "AngularJS TodoMVC"
+    %meta{ :content=>'width=device-width, initial-scale=1.0', :name =>'viewport' }
+    %meta{ :content=>"", :name=>"description" }
+    %meta{ :content=>"", :name=>"author" }
+    
+    = stylesheet_link_tag    "application", media: "all"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+    
+    :javascript
+      var _plunker = {
+        "url": "",
+        "session": "",
+        "bootstrap": ""
+      };
+    
+    = yield :extra_css
+    = yield :extra_javascript
+    %style
+      [ng-cloak] { display: none; }
+        
+  = content_for?(:content) ? yield(:content) : yield 
+       
+
+  = yield :extra_javascript
+  

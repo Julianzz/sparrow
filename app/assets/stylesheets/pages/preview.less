@@ -1,0 +1,55 @@
+@import url(http://fonts.googleapis.com/css?family=Exo:900);
+
+@import "../../bootstrap/less/bootstrap";
+@import "../../bootstrap/less/responsive";
+
+@import "../components/navbar";
+@import "../components/userpanel";
+
+@import "../vendor/prettify";
+
+body {
+  height: 100%;
+}
+
+#container {
+  padding-top: 50px;
+}
+
+@media (max-width: 979px) {
+  #container {
+    padding-top: 0;
+  }
+  .navbar-fixed-top .navbar-inner {
+    padding: 0;
+    position: relative;
+    z-index: 5;
+  }
+}
+
+#pages .page {
+  display: none;
+}
+
+#pages.preview .page.preview {
+  display: block;
+}
+
+#pages.code .page.code {
+  display: block;
+}
+
+
+#preview {
+  position: absolute;
+  top: 0px;
+  left: 0; right: 0; bottom: 0;
+  padding-top: 40px;
+  overflow: hidden;
+}
+#preview-frame {
+  width: 100%;
+  margin: 0; padding: 0;
+  border: 0;
+  height: 100%;
+}

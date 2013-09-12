@@ -1,0 +1,6 @@
+angular.module('templates', []).run(function($templateCache) {
+  <% Dir.glob(Rails.root.join('app','assets','templates', '*.haml')).each do |f| %>
+    $templateCache.put("<%= File.basename(f).gsub(/\.haml$/, '')  %>", 
+					<%= Haml::Engine.new(File.read(f)).render.to_json %>);
+  <% end %>
+});

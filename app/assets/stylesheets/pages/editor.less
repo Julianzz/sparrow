@@ -1,0 +1,108 @@
+@import url(http://fonts.googleapis.com/css?family=Exo:900);
+
+@import "./common/style";
+
+@import "./components/navbar";
+@import "./components/userpanel";
+@import "./components/previewer";
+@import "./components/statusbar";
+@import "./components/toolbar";
+@import "./components/multipanel";
+@import "./components/discussion";
+@import "./components/gallery";
+@import "./components/share";
+
+@import "./vendor/jquery-layout";
+@import "./vendor/prettify";
+
+body {
+  min-width: 410px;
+}
+
+#container {
+  padding-top: 50px;
+}
+
+.navbar-fixed-top {
+  height: 40px;
+  overflow: none;
+}
+
+@media (max-width: 979px) {
+  #container {
+    padding-top: 0;
+  }
+  .navbar-fixed-top .navbar-inner {
+    position: relative;
+    z-index: 5;
+  }
+}
+
+@media (max-width: 720px) {
+  .navbar-fixed-top .shrink {
+    display: none;
+  }
+}
+
+.brand {
+  height: 40px;
+}
+
+#editor {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  
+  .plnk-overlay {
+    z-index: 9999;
+    background-color: rgba(0,0,0,0.5);
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    display: none;
+  }
+  
+  @import "./components/sidebar";
+  
+  .ui-layout-pane {
+    position: relative;
+    border: none;
+  }
+  
+  .editor-canvas {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+  }
+  .editor-status {
+    position: absolute;
+    height: 18px; left: 0; right: 0; bottom: 0;
+    background-color: #333;
+    
+    .navbar-fixed-bottom {
+      position: absolute;
+      
+      .nav {
+        margin: 0;
+        
+        .divider-vertical {
+          height: 20px;
+        }
+      }
+      .nav > li > a {
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+    }
+    .navbar-inner {
+      min-height: 20px;
+      height: 20px;
+    }
+  }
+}
+
+#editor.loading {
+  .plnk-overlay {
+    display: block;
+  }
+}

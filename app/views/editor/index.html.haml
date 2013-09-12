@@ -1,0 +1,78 @@
+
+%body{ "ng-controller"=>"editor","itemtype"=>"http://schema.org/WebPage",:itemscope=>true }
+
+  %header.navbar.navbar-fixed-top
+    .navbar-inner
+      %a.brand(href="{{url.www}}")
+        %span.shrink 
+          Plunker
+          %span.version 
+            
+      / %userpanel
+      %plunker-toolbar
+
+  #editor{ "plunker-layout"=>true, "ng-class"=>"{loading:scratch.loading}" }
+    .plnk-overlay
+    
+    .ui-layout-center
+      .ui-layout-center
+        %plunker-ace.editor-canvas
+      %plunker-multipanel#multipanel.ui-layout-east{ :panes=>"panes" }
+
+    #multipane-buttons.ui-layout-east
+      %ul.nav.nav-list
+        %li.pane-toggle{ "ng-repeat"=>" panel in panels | orderBy:'order' | filter:isPaneEnabled", "ng-class"=>"{active: panels.active==panel}", "title"=>"{{panel.title}}" }
+          %a{ :href=>"javascript:void(0)", "ng-click"=>"togglePanel(panel)" }
+            %i{ "ng-class"=>"panel.icon" }
+            %span.badge{ "ng-class"=>"panel.badge.class", "ng-show"=>"panel.badge", "title"=>"{{panel.badge.title}}" } 
+              {{ panel.badge.value }}
+            
+    .ui-layout-west
+      .plnk-sidebar
+        %details.file-list{ :open => true }
+          %summary.header 
+            Files
+            %a.file-add{ :href=>"javascript:void(0)", "ng-click"=>"scratch.promptFileAdd()" }
+              %i.icon-file 
+              | New...
+          %ul.nav.nav-list
+            %li.file{ "ng-class"=>"{ active:buffer==scratch.buffers.active()}","ng-repeat"=>"buffer in scratch.buffers.queue | orderBy:'filename'" }
+              %a{ "href"=>"javascript:void(0)", "ng-click"=>"scratch.buffers.activate(buffer)", "ng-dblclick"=>"scratch.promptFileRename(buffer.filename)"} 
+                {{buffer.filename}}
+              %ul.file-ops
+                %li.delete
+                  %button.btn.btn-mini{ "ng-click"=>"scratch.promptFileRemove(buffer.filename)"} 
+                  %i.icon-remove
+              
+        %details.information(open)
+          %summary.header Information
+          %form
+            %label(for="plnk-description") 
+              Description:
+            %textarea#plnk-description.description{ "ng-model"=>"scratch.plunk.description",:itemprop=>"name",:placeholder=>"Describe your plunk" }
+            %label(for="plnk-tags") Tags:
+            %input#plnk-tags.tags{ "ng-model"=>"scratch.plunk.tags", :style=>"width:100%" ,"select-list"=>true, "ui-select2"=>true }
+            %span.help-block Comma-separated list
+            %label(for="plnk-private")
+              %input#plnk-private.inline{ :type=>"checkbox", "ng-model"=>"scratch.plunk.private","ng-disabled"=>"scratch.isSaved()"}
+              %span private plunk
+          
+          %div{ "ng-show"=>'' }
+            %hr
+            %div.thumb{ "on"=>"scratch.plunk.thumbed", "ng-class"=>"{thumbed:scratch.plunk.thumbed}"}(ng-switch)
+              %div{ "ng-switch-when"=>"false" }
+                %button.btn.btn{ "ng-click"=>"scratch.plunk.addThumbsUp()",:title=>"Give a thumbs-up to this plunk."}
+                  %i.icon-thumbs-up
+                  |  Thumbs-up
+              %div{ "ng-switch-when"=>"true"}
+                %i.icon-heart
+                  |  Thumbed-up 
+                %button.btn.btn-danger.btn-mini{ "ng-click"=>"scratch.plunk.removeThumbsUp()",:title=>"Remove your thumbs-up from this plunk." }
+                  %i.icon-thumbs-down
+          
+          %div{"ng-show"=>"scratch.plunk.user"}
+            %hr
+            %div.user{"ng-show"=>"scratch.plunk.user"}
+              %img.gravatar{ "ng-src"=>"http://www.gravatar.com/avatar/{{scratch.plunk.user.gravatar_id}}?s=18&d=mm" }
+              %span.login {{scratch.plunk.user.login}}
+      

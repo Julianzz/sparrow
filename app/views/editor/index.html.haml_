@@ -1,0 +1,35 @@
+
+%pre#editor Time
+.scrollmargin
+%pre#editor2 minHeight = 2 lines
+  
+= content_for :extra_css do 
+  :css
+    .ace_editor {
+      position: relative !important;
+      border: 1px solid lightgray;
+      margin: auto;
+      height: 200px;
+      width: 80%;
+    }
+    .scrollmargin {
+      height: 100px;
+      text-align: center;
+    }
+
+= content_for :extra_javascript do 
+  :javascript
+    // create first editor
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/tomorrow");
+    editor.session.setMode("ace/mode/html");
+    editor.setAutoScrollEditorIntoView();
+    editor.setOption("maxLines", 100);
+
+    var editor2 = ace.edit("editor2");
+    editor2.setTheme("ace/theme/tomorrow_night_blue");
+    editor2.session.setMode("ace/mode/html");
+    editor2.setAutoScrollEditorIntoView();
+    editor2.setOption("maxLines", 30);
+    editor2.setOption("minLines", 2);
+  

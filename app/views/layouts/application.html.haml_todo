@@ -1,0 +1,42 @@
+!!!
+%html{ :lang=>"en", "ng-app"=>"todomvc", "data-framework"=>"angularjs" }
+  %head
+    %meta{ :charset=>'utf-8' }
+    %title= content_for?(:title) ? yield(:title) : "AngularJS TodoMVC"
+    %meta{ :content=>'width=device-width, initial-scale=1.0', :name =>'viewport' }
+    %meta{ :content=>"", :name=>"description" }
+    %meta{ :content=>"", :name=>"author" }
+
+    = stylesheet_link_tag    "application", media: "all"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+    
+    :javascript
+      var _plunker = {
+        "url": !{JSON.stringify(url).replace(/<\//g,"<\\/")},
+        "session": !{JSON.stringify(session).replace(/<\//g,"<\\/")},
+        "bootstrap": !{JSON.stringify(bootstrap).replace(/<\//g,"<\\/")}
+      };
+      
+    = yield :extra_css
+
+    %style
+      [ng-cloak] { display: none; }
+      
+  %body
+    %header.navbar.navbar-fixed-top
+      %nav.navbar-inner
+        .container
+          = render 'layouts/navigation'
+
+    - flash.each do |name, msg| 
+      = content_tag :div, msg, class: name
+  
+    = content_for?(:content) ? yield(:content) : yield 
+       
+    %footer#info
+      %p Double-click to edit a todo
+      %p Credits:
+
+  = yield :extra_javascript
+  

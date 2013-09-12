@@ -1,0 +1,139 @@
+@import "./components/tags";
+
+.card.span3 {
+  width: 270px;
+}
+
+.page-header {
+  margin: 18px 0 10px;
+  border-bottom: 1px solid #ccc;
+  
+  .nav {
+    margin-bottom: 0;
+  }
+  
+  .pagination {
+    margin: 0;
+  }
+}
+
+.cards {
+  .thumbnail {
+    background-color: white;
+    position: relative;
+    
+    .meta, .extras {
+      text-align: right;
+      list-style: none;
+      
+      margin: 0; padding: 0;
+      
+      li {
+        display: inline-block;
+        
+        a {
+          color: #666;
+          text-decoration: none;
+        }
+        a:hover {
+          color: #08C;
+        }
+      }
+      .votes.thumbed a:hover {
+        color: red;
+      }
+    }
+    
+    .hover {
+      display: none;
+    }
+    
+    .preview {
+      display: block;
+      width: 238px;
+      height: 179px;
+    }
+    
+    .meta {
+      margin: 4px 10px; 
+    }
+    
+    .extras {
+      position: absolute;
+      
+      bottom: 7px;
+      left: 10px;
+    }
+  }
+  
+  .plunk {
+    width: 270px;
+  }
+  .owned {
+    position: absolute;
+    top: 4px; right: 4px;
+  }
+  
+  .thumbnail img {
+    width: 238px;
+    margin: 0 10px;
+    border: 1px solid #ccc;
+    -webkit-box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
+    -moz-box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
+    box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
+  }
+  
+  .thumbnail .description {
+    color: #333;
+    height: 18px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin: 0 10px;
+  }
+    
+  .thumbnail .created_at {
+    text-transform: none;
+  }
+  
+  .thumbnail {
+    border-color: #0088cc;
+    -webkit-box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
+    -moz-box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
+    box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
+    
+    .preview {
+      position: relative;
+    
+      .hover {
+        display: block;
+        position: absolute;
+        bottom: 2px;
+        right: 2px;
+      }
+    }
+  }
+  .user {
+    margin: 5px 15px;
+    height: 39px;
+    
+    a {
+      color: #666;
+      text-decoration: none;
+    }
+    .gravatar {
+      border: 1px solid white;
+    }
+    a:hover {
+      color: #08C;
+      
+      .gravatar {
+        border: 1px solid #08C;
+      }
+    }
+  }
+  
+  .created_at {
+    color: #aaa;
+  }
+}

@@ -1,0 +1,1 @@
+Ember.keys(Ember.TEMPLATES)

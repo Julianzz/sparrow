@@ -1,0 +1,77 @@
+#multipanel {
+  .panel {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+}
+
+#multipane-buttons {
+  background: whiteSmoke;
+  text-align: center;
+  
+  ul {
+    > li {
+      text-align: center;
+      font-size: 16px;
+      position: relative;
+      
+      a {
+        padding: 8px;
+        color: #999;
+        text-decoration: none;
+      }
+      .badge {
+        padding: 1px 5px 2px;
+        -webkit-border-radius: 6px;
+        -moz-border-radius: 6px;
+        border-radius: 6px;
+        font-size: 8px;
+        line-height: 8px;
+        position: absolute;
+        right: -13px; // Bootstrap negative margin counter
+        top: 2px;
+      }
+    }
+    > li:hover {
+      a {
+        color: #005580;
+      }
+    }
+    > li.active {
+      a {
+        color: white;
+      }
+    }
+  }
+}
+
+#panel-explore, #panel-discussion, #panel-streamer, #panel-lint, #panel-builder, #panel-readme {
+  padding: 8px;
+}
+
+#panel-streamer {
+  .status {
+    margin: -8px;
+    margin-bottom: 8px;
+    padding: 8px;
+    background-color: #eef0ee;
+  }
+  
+}
+
+#panel-lint {
+  .jshint-report {
+    margin: 0;
+    color: #404040;
+  }
+  
+  ul.jshint-errors {
+    margin: 0;
+    list-style-type: none;
+  }
+  
+  ul.jshint-errors li {
+    margin-bottom: 15px;
+  }
+}

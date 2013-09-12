@@ -1,0 +1,36 @@
+#editor-file-list {
+  .file {
+    position: relative;
+    
+    .file-ops {
+      display: none;
+    }
+  }
+  
+  .file:hover {
+    .file-ops {
+      display: inline-block;
+      list-style: none;
+      margin: 0; padding: 0;
+      position: absolute;
+      right: 4px;
+      top: -2px;
+      
+      li {
+        display: inline-block;
+        
+        button {
+          background: none;
+          border: none;
+          margin: 0; padding: 5px 0;
+          -webkit-box-shadow: none;
+          -moz-box-shadow: none;
+          box-shadow: none;
+        }
+        button:hover {
+          color: red;
+        }
+      }
+    }
+  }
+}
