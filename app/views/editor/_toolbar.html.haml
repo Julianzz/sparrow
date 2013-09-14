@@ -1,0 +1,70 @@
+
+#toolbar.btn-toolbar{ "ng-controller"=>"ToolbarController" }
+  .btn-group{ "ng-show"=>"scratch.isOwned()" }
+    %button.btn.btn-primary{ "ng-click"=>"scratch.save()", :title=>"{{saveTitle}}" }
+      %i.icon-ok
+      %span.shrink Save
+
+  .btn-group{ "ng-show"=>"scratch.isSaved()" }
+    %button.btn{ "ng-click"=>"scratch.fork()",:title=>"Save your changes as a fork of this Plunk" }
+      %i.icon-git-fork
+      %span.shrink Fork
+    %button.btn.dropdown-toggle{ "data-toggle"=>"dropdown" }
+      %span.caret
+    %ul.dropdown-menu{ "ng-switch"=>true, :on=>"scratch.plunk.private" }
+      %li{ "ng-switch-when"=>"false" }
+        %a{ "ng-click"=>"scratch.fork({private: true})" }
+          Fork to private plunk
+      %li{ "ng-switch-when"=>"true"}
+        %a{ "ng-click"=>"scratch.fork({private: false})" }
+          Fork to public plunk
+          
+  .btn-group{ "ng-show"=>"scratch.isOwned() && scratch.isSaved()" }
+    %button.btn.btn-danger{ "ng-click"=>"scratch.promptDestroy()","title"=>"Delete the current plunk" }
+      %i.icon-trash
+  .btn-group
+    %a.btn.btn-success{ "href"=>"/edit/","title"=>"Start a new plunk from a blank slate" }
+      %i.icon-file
+      %span.shrink  New
+    %button.btn.btn-success.dropdown-toggle{ "data-toggle"=>"dropdown" }
+      %span.caret
+      
+    %ul.dropdown-menu
+      %li
+        %a{ "href"=>"/edit/gist:1986619" }
+          jQuery
+          %a.coffee{ "href"=>"/edit/gist:1992850", "title"=>"In coffee-script" }
+            %img{ "src"=>"/img/coffeescript-logo-small_med.png" }
+      %li
+        %a{ "href"=>"/edit/gist:2006604" }
+          jQuery UI
+          
+      %li.divider
+      %li.dropdown-submenu
+        %a{ "tabindex"=>"-1", "href"=>"#" } AngularJS
+        %ul.dropdown-menu
+          %li
+            %a{ "href"=>"/edit/b:starter-angularjs" }
+              1.0.x (stable)
+              %a.coffee{ "href"=>"/edit/b:starter-angularjs-coffee", "title"=>"In coffee-script"} 
+                %img{ "src"=>"/img/coffeescript-logo-small_med.png"} 
+          %li
+            %a{ "href"=>"/edit/b:angularjs@1.1.x+starter-angularjs" }
+              1.1.x (unstable)
+              %a.coffee{ "href"=>"/edit/b:angularjs@1.1.x+starter-angularjs-coffee", "title"=>"In coffee-script" }
+                %img{ "src"=>"/img/coffeescript-logo-small_med.png" }
+          %li.divider
+          %li
+            %a{ "href"=>"/edit/gist:3743008" }
+              1.0.2 + Jasmine
+      %li.divider
+  
+  .btn-group
+    %button.btn{ "ng-click"=>"triggerDownload()", "title"=>"Save your work as a zip file" }
+      %i.icon-download-alt
+      
+  .btn-group{ "ng-switch"=>true, "on"=>"scratch.isSaved()" }
+    %div{ "ng-switch-when"=>"true" }
+      %button.btn.btn-warning.dropdown-toggle{ "ng-click"=>"lazyLoadShareButtons()", "title"=>"Show off your work." }
+        %i.icon-share
+        %span.caret
