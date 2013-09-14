@@ -7,7 +7,6 @@
 @todomvc = angular.module 'todomvc', [ 
   "ngResource",
   "plunker.editor",
-  "angularBootstrapNavTree",
   '$angularTree.directives',
   "plunker.filelist"
 ] 
