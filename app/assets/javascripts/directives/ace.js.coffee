@@ -2,7 +2,6 @@
 EditSession = require("ace/edit_session").EditSession
 UndoManager = require("ace/undomanager").UndoManager
 
-
 module = angular.module("plunker.ace", ["plunker.modes"])
 
 module.directive "plunkerSession", ["$rootScope", "$timeout", "modes", ($rootScope, $timeout, modes) ->
@@ -11,6 +10,7 @@ module.directive "plunkerSession", ["$rootScope", "$timeout", "modes", ($rootSco
   template: """
     <div style="display: none" ng-model="buffer.content"></div>
   """
+  
   replace: true
   link: ($scope, el, attrs, ngModel) ->
     buffer = $scope.buffer
@@ -25,6 +25,7 @@ module.directive "plunkerSession", ["$rootScope", "$timeout", "modes", ($rootSco
       session.setValue(ngModel.$viewValue or "")
     
     read = -> ngModel.$setViewValue(session.getValue())
+    
     session.on 'change', ->
       if $scope.$$phase then read()
       else $scope.$apply(read)
@@ -32,6 +33,7 @@ module.directive "plunkerSession", ["$rootScope", "$timeout", "modes", ($rootSco
     session.on "changeAnnotation", -> $scope.$apply ->
       errors = []
       for linenum, notes of session.getAnnotations()
+        console.log notes
         for note in notes
           if note.lint then errors.push
             message: note.text

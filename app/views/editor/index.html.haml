@@ -57,6 +57,7 @@
               %input#plnk-private.inline{ :type=>"checkbox", "ng-model"=>"scratch.plunk.private","ng-disabled"=>"scratch.isSaved()"}
               %span private plunk
           
+          
           %div{ "ng-show"=>'' }
             %hr
             %div.thumb{ "on"=>"scratch.plunk.thumbed", "ng-class"=>"{thumbed:scratch.plunk.thumbed}"}(ng-switch)
@@ -69,7 +70,10 @@
                   |  Thumbed-up 
                 %button.btn.btn-danger.btn-mini{ "ng-click"=>"scratch.plunk.removeThumbsUp()",:title=>"Remove your thumbs-up from this plunk." }
                   %i.icon-thumbs-down
-          
+          .well
+            %angular-tree{ "data-options"=>"treeOptions",
+              "icon-leaf"=>"icon-file", 
+              }
           %div{"ng-show"=>"scratch.plunk.user"}
             %hr
             %div.user{"ng-show"=>"scratch.plunk.user"}

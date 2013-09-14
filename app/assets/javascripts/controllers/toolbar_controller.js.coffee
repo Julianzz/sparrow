@@ -1,7 +1,6 @@
 todomvc.controller 'ToolbarController',($scope, $location, scratch, downloader )->
   $scope.scratch = scratch
 
-  console.log "inside toolbar controller"
   # Watch the ownership of the active plunk and change the save text accordingly
   $scope.$watch "scratch.isSaved()", (isSaved) ->
     if isSaved
@@ -14,6 +13,7 @@ todomvc.controller 'ToolbarController',($scope, $location, scratch, downloader )
       $scope.saveIcon = "icon-save"
 
   $scope.promptImportGist = (source) ->
+    
     if source ||= prompt("Please enter a gist id to import")
       $location.path("gist:#{source}")
   

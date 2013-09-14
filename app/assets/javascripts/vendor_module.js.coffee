@@ -21,6 +21,6 @@
 #= require_tree ./vendor/noty
 
 #= require bootstrap
-#= require select2/select2.js
+#= require vendor/select2
 
 #= require vendor/socket.io

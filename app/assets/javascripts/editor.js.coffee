@@ -2,7 +2,18 @@
 ###
 module = angular.module("plunker.editor", ["ui.directives", "plunker.scratch", "plunker.url", "plunker.userpanel", "plunker.layout", "plunker.ace", "plunker.statusbar", "plunker.multipanel", "plunker.toolbar"])
 ###
-module = angular.module("plunker.editor", ["ui.directives", "plunker.scratch", "plunker.url", "plunker.userpanel", "plunker.layout", "plunker.ace", "plunker.statusbar", "plunker.multipanel", "plunker.toolbar"])
+module = angular.module("plunker.editor", [
+  "ui.directives", 
+  "plunker.scratch", 
+  "plunker.url", 
+  "plunker.userpanel",
+  "plunker.layout", 
+  "plunker.ace", 
+  "plunker.filelist",
+  "plunker.downloader",
+  "plunker.statusbar", 
+  "plunker.buffers",
+  "plunker.multipanel" ])
 
 module.value "ui.config",
   select2:
@@ -25,7 +36,7 @@ module.config ["$routeProvider", "$locationProvider", ($routeProvider, $location
   $locationProvider.html5Mode(true)
 ]
 
-module.controller "editor", [ "$scope", "$location", "scratch", "url", ($scope, $location, scratch, url) ->
+module.controller "editor", [ "$scope", "$location", "scratch", "url","fileList" , ($scope, $location, scratch, url,fileList) ->
   $scope.url = url
   
   repaintSidebar = ->
@@ -49,6 +60,38 @@ module.controller "editor", [ "$scope", "$location", "scratch", "url", ($scope, 
   $scope.scratch = scratch
   
   $scope.isPaneEnabled = (pane) -> !pane.hidden
+  
+  $scope.person = { name: "Ari Lerner" }
+  updateClock = ->
+    $scope.clock = new Date()
+  timer = setInterval ->
+    $scope.$apply(updateClock)
+  , 1000
+  updateClock()
+  
+  $scope.logs = []
+  $scope.treeOptions =
+    expandedIconClass: 'icon-chevron-down'
+    collapsedIconClass: 'icon-chevron-right'
+    # expandedIconClass: 'icon-minus'
+    # collapsedIconClass: 'icon-plus'
+    
+    getChildren: (node, callback) ->
+      searchPath = if node and node.path  then node.path else "/"
+      fileList.fetchFile searchPath, (err, files ) ->
+        return if err 
+        callback files
+        
+    onLabelClick: (node) ->
+      $scope.logs = [
+        { text: 'selected: ' + JSON.stringify(label:node.label, level:node.level) }
+      ].concat $scope.logs
+      
+    onExpanderClick: (node) ->
+      $scope.logs = [
+        {text: (if node.expanded then 'expanded' else 'collapsed') + ': ' + JSON.stringify(label:node.label, level:node.level)}
+      ].concat $scope.logs
+  
 ]
 ###
   repaintSidebar()

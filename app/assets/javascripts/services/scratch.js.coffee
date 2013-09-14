@@ -1,94 +1,15 @@
 ###
 Service representing the transient state of the editor
-
-This service holds the single source of truth for everything related to the
-editor's state. It holds a reference to the active plunk that it affects upon
-request.
-
-The scratch is a 'smart' application specific layer on top of the dumb plunk
-data service.
-
-It is important to note that changes propagate one-way from the scratch to the
-plunk. Making changes to the plunk directly will probably not have the desired
-effect.
-
 ###
+
 #module = angular.module("plunker.scratch", ["plunker.plunks", "plunker.importer", "plunker.notifier"])
-module = angular.module("plunker.scratch", ["plunker.plunks", "plunker.notifier", "plunker.socket" ])
+module = angular.module("plunker.scratch", ["plunker.plunks", "plunker.notifier", "plunker.socket","plunker.buffers"])
 
 #module.factory "scratch", ["$location", "$q", "Plunk", "importer", "session", "notifier", ($location, $q, Plunk, importer, session, notifier) ->
-module.factory "scratch", ["$location", "$q", "Plunk", "session", "notifier","socket", ($location, $q, Plunk, session, notifier,socket ) ->
-  ###
-  Class to handle the list of active buffers
-  ###
-  class Buffers
-    constructor: ->
-      @queue = []
-    
-    at: (idx = 0) -> @queue[idx]
-    active: -> @at(0)
-    
-    activate: (active) ->
-      # Take it out and put it in the front
-      @remove(active)
-      @queue.unshift(active)
-      @
-    
-    findBy: (key, value) ->
-      return object for object in @queue when object[key] == value
-    
-    add: (add) ->
-      @queue.push(new Buffer(add))
-      @
-    
-    remove: (remove) ->
-      if (idx = @queue.indexOf(remove)) >= 0
-        @queue.splice(idx, 1)
-      @
-      
-    reset: (queue = []) ->
-      @queue.length = 0
-      @add(item) for item in queue
-      @
-    
-  ###
-  Class representing an active file in the editor
-  ###
-  class Buffer
-    nextID: do ->
-      counter = 1
-      -> "Untitled#{counter++}"
-      
-    constructor: (attributes = {}) ->
-      angular.copy(attributes, @)
-      
-      @content ||= ""
-      @filename ||= @nextID()
-      
-      @old_filename = @filename if @filename
-    
-    getDelta: (file) ->
-      delta = {}
-      delta.filename = @filename unless file.filename is @filename
-      delta.content = @content unless file.content is @content
-      
-      return delta if delta.filename? or delta.content?
-      
+module.factory "scratch", ["$location", "$q", "Plunk", "session", "notifier","socket","buffers", ($location, $q, Plunk, session, notifier,socket,buffers ) ->
   
   new class Scratch
-    @defaultIndex: """
-      <!DOCTYPE html>
-      <html>
-      
-        <head lang="en">
-          <meta charset="utf-8">
-          <title>Custom Plunker</title>
-        </head>
-        
-        <body></body>
-        
-      </html>
-    """
+    @defaultIndex: """ </html> """
     @emptyPlunk:
       description: ""
       files: { "index.html": {filename: "index.html", content: @defaultIndex} }
@@ -97,8 +18,9 @@ module.factory "scratch", ["$location", "$q", "Plunk", "session", "notifier","so
     constructor: ->
       @description = ""
       @tags = []
+      console.log buffers
       
-      @buffers = new Buffers
+      @buffers = new buffers.Buffers
       @plunk = new Plunk()
       
       @reset()
@@ -155,7 +77,6 @@ module.factory "scratch", ["$location", "$q", "Plunk", "session", "notifier","so
         self.loading = false
         
       fn.call(@, deferred)
-      
       deferred.promise
     
     _getDeltaJSON: (savedState) ->

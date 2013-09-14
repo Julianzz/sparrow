@@ -1,10 +1,9 @@
 #= require ../vendor/jquery.cookie
-
 #= require ../services/url
 
-module = angular.module("plunker.plunks", ["plunker.url"])
+module = angular.module("plunker.plunks", ["plunker.url","plunker.cookie"])
 
-module.factory "Plunk", ["$http", "$rootScope", "url", ($http, $rootScope, url) ->
+module.factory "Plunk", ["$http", "$rootScope", "url","cookie", ($http, $rootScope, url,cookie) ->
 	
   class window.Plunk
     @defaults:
@@ -17,7 +16,7 @@ module.factory "Plunk", ["$http", "$rootScope", "url", ($http, $rootScope, url) 
 		
     @query: (source, success = angular.noop, error = angular.noop) ->
       plunks = []
-      params = sessid: $.cookie("plnk_session")
+      params = sessid: cookie.sessionId
       
       unless angular.isObject(source)
         source = 

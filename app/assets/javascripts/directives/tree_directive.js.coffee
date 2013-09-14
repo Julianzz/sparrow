@@ -1,8 +1,8 @@
-Array::insertAfterItem = (item, newItems )->
-  result = if @length > 0 then @ else newItems
-  index = @indexOf item
+insertAfterItem = ( a,item, newItems )->
+  result = if a.length > 0 then a else newItems
+  index = a.indexOf item
   unless index == -1
-    result = @concat newItems, @splice index+ 1
+    result = a.concat newItems, a.splice index+ 1
   return result
 
 angular.module('$angularTree.config', []).value('$angularTree.config', {});
@@ -48,7 +48,7 @@ angular.module('$angularTree.directives').directive 'angularTree', () ->
               
               newItems.push( item )
 
-          scope.nodes = scope.nodes.insertAfterItem node, newItems 
+          scope.nodes = insertAfterItem scope.nodes,node, newItems 
           console.log scope.nodes
           if node 
             node.loaded = true
