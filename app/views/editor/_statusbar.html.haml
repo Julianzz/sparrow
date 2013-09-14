@@ -1,0 +1,25 @@
+.editor-status{ "ng-controller"=>"EditorStatusController"}
+  .navbar.navbar-fixed-bottom.navbar-inverse
+    .navbar-inner
+      %ul.nav
+        %li.dropdown
+          %a.dropdown-toggle{ "href"=>"javascript:void(0)", "data-toggle"=>"dropdown" }
+            {{scratch.buffers.active().filename}}
+            %b.caret
+          
+          %ul#editor-file-list.dropdown-menu
+            %li.file-add
+              %a{ "href"=>"javascript:void(0)", "ng-click"=>"scratch.promptFileAdd()" }
+                Add file...
+            %li.divider
+            
+            %li.file{ "ng-repeat"=>"buffer in scratch.buffers.queue | orderBy:'filename'", "ng-class"=>"{active:buffer==scratch.buffers.active()}" }
+      
+              %a.buffer{ "href"=>"javascript:void(0)", "ng-click"=>"scratch.buffers.activate(buffer)","ng-dblclick"=>"scratch.promptFileRename(buffer.filename)" }
+                {{buffer.filename}}
+              %ul.file-ops
+                %li.delete
+                  %button.btn.btn-mini{ "ng-click"=>"scratch.promptFileRemove(buffer.filename)" }
+                    %i.icon-remove
+
+        %li.divider-vertical

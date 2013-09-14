@@ -1,6 +1,7 @@
 module = angular.module("plunker.filebrowser", [ "plunker.filelist" ])
 
-module.controller 'FileBrowserController',($scope,fileList )->
+module.controller 'FileBrowserController',($scope,fileList ) ->
+  
   $scope.person = { name: "Ari Lerner" }
   updateClock = ->
     $scope.clock = new Date()

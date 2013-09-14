@@ -1,5 +1,5 @@
 
-%body{ "ng-controller"=>"editor","itemtype"=>"http://schema.org/WebPage",:itemscope=>true }
+%body{ "ng-controller"=>"EditorController","itemtype"=>"http://schema.org/WebPage",:itemscope=>true }
 
   %header.navbar.navbar-fixed-top
     .navbar-inner
@@ -72,9 +72,9 @@
                   %i.icon-thumbs-down
                   
           .well{ "ng-controller" => "FileBrowserController" }
-            %angular-tree{ "data-options"=>"treeOptions",
-              "icon-leaf"=>"icon-file", 
-              }
+            %browser-tree{ "data-options"=>"treeOptions",
+              "icon-leaf"=>"icon-file",
+            }
               
           %div{"ng-show"=>"scratch.plunk.user"}
             %hr

@@ -1,8 +1,7 @@
+module = angular.module("plunker.ace", ["plunker.modes"])
 
 EditSession = require("ace/edit_session").EditSession
 UndoManager = require("ace/undomanager").UndoManager
-
-module = angular.module("plunker.ace", ["plunker.modes"])
 
 module.directive "plunkerSession", ["$rootScope", "$timeout", "modes", ($rootScope, $timeout, modes) ->
   restrict: "E"
@@ -33,7 +32,6 @@ module.directive "plunkerSession", ["$rootScope", "$timeout", "modes", ($rootSco
     session.on "changeAnnotation", -> $scope.$apply ->
       errors = []
       for linenum, notes of session.getAnnotations()
-        console.log notes
         for note in notes
           if note.lint then errors.push
             message: note.text
@@ -69,7 +67,7 @@ module.directive "plunkerSession", ["$rootScope", "$timeout", "modes", ($rootSco
         $scope.ace.focus()
     
     $rootScope.$broadcast "buffer:add", $scope.buffer
-] 
+]
 
 module.directive "plunkerAce", ["$rootScope", "modes", "scratch", ($rootScope, modes, scratch) ->
   restrict: "E"

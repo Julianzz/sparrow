@@ -5,19 +5,17 @@ insertAfterItem = ( a,item, newItems )->
     result = a.concat newItems, a.splice index+ 1
   return result
 
-angular.module('$angularTree.config', []).value('$angularTree.config', {});
-angular.module('$angularTree.filters', ['$angularTree.config']);
-angular.module('$angularTree.directives', ['$angularTree.config']);
-angular.module('$angularTree', ['$angularTree.filters', '$angularTree.directives', '$angularTree.config']);
 
-angular.module('$angularTree.directives').directive 'angularTree', () ->
+module = angular.module('plunker.browsertree', [])
+
+module.directive 'browserTree', () ->
   restrict:'E'
   template: '''
-    <ul class="nav nav-list ">
+    <ul class="nav nav-list">
     <li ng-show="header" class="nav-header">
       {{ header }}
     </li>
-    <div angular-tree-node ng-repeat="node in nodes"
+    <div browser-tree-node ng-repeat="node in nodes"
       data-node="node" data-options="options">
     </div>
     '''
@@ -28,7 +26,7 @@ angular.module('$angularTree.directives').directive 'angularTree', () ->
   link: (scope, element, attrs) ->
     scope.nodes = []
     scope.header = "hello, this my tree view "
-    scope.trees = {}    
+    scope.trees = {}
     
     getChildren = (node) ->
       path = if node then node.path else "/"
@@ -73,7 +71,7 @@ angular.module('$angularTree.directives').directive 'angularTree', () ->
     getChildren()
 
 
-angular.module('$angularTree.directives').directive 'angularTreeNode', () ->
+module.directive 'browserTreeNode', () ->
   template: '''
   <li class="abn-tree-row" 
         ng-show="node.visible"

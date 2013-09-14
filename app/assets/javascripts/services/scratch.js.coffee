@@ -9,10 +9,16 @@ module = angular.module("plunker.scratch", ["plunker.plunks", "plunker.notifier"
 module.factory "scratch", ["$location", "$q", "Plunk", "session", "notifier","socket","buffers", ($location, $q, Plunk, session, notifier,socket,buffers ) ->
   
   new class Scratch
-    @defaultIndex: """ </html> """
+    @defaultIndex: """"""
     @emptyPlunk:
       description: ""
-      files: { "index.html": {filename: "index.html", content: @defaultIndex} }
+      files: { 
+        "index.html": { 
+          filename: "index.html", 
+          content: @defaultIndex
+        } 
+      }
+      
       'private': true
       
     constructor: ->

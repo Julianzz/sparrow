@@ -1,6 +1,6 @@
-module = angular.module("plunker.session", ["plunker.url"])
+module = angular.module("plunker.session", ["plunker.url","plunker.cookie"])
 
-module.factory "session", ["$http", "$rootScope", "url", ($http, $rootScope, url) ->
+module.factory "session", ["$http", "$rootScope", "url","cookie", ($http, $rootScope, url,cookie) ->
   new class Session
     constructor: ->
       angular.copy(_plunker.session, @) if _plunker and _plunker.session
@@ -8,9 +8,7 @@ module.factory "session", ["$http", "$rootScope", "url", ($http, $rootScope, url
       #pm.bind "oauth:success", angular.bind(@, @handleAuth)
       #pm.bind "oauth:error", angular.bind(@, @handleError)
       
-      $.cookie "plnk_session", @id,
-        expires: 14 # 14 days from now
-        path: "/"
+      cookie.addSessionID @id 
     
     login: (width = 1000, height = 650) ->
       screenHeight = screen.height

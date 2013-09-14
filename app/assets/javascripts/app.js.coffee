@@ -7,7 +7,6 @@
 @todomvc = angular.module 'todomvc', [ 
   "ngResource",
   "plunker.editor",
-  '$angularTree.directives',
   "plunker.filelist"
 ] 
 

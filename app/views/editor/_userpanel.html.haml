@@ -1,0 +1,27 @@
+#userpanel.pull-right
+  .btn-group{ "ng-show"=>"session.user.id" }
+    %button.user-menu.btn.dropdown-toggle{ "data-toggle"=>"dropdown","title"=>"User options" }
+      %img.gravatar{ :src=>"http://www.gravatar.com/avatar/{{session.user.gravatar_id}}?s=20" }
+      %span.text.shrink
+        {{session.user.login}}
+      %b.caret
+      
+    %ul.dropdown-menu
+      %li
+        %a{ :href=>"/users/{{session.user.login}}" } My Profile 
+      %li
+        %a{ :href=>"/users/{{session.user.login}}/thumbed" } My thumbed plunks
+      %li.divider
+      %li
+        %a.logout{ :href=>"javascript:void(0)", "plnkr-press"=>"session.logout()" } Logout
+
+  .btn-group{ "ng-hide"=>"session.user.id" }
+    %button.user-login.btn.dropdown-toggle{ "data-toggle"=>"dropdown", "title"=>"Sign in" }
+      %i.icon-user
+      %span.text.shrink Sign in
+      %span.caret
+    %ul.dropdown-menu
+      %li
+        %a.login.login-github{ "data-service"=>"github", "href"=>"javascript:void(0)", "plnkr-press"=>"session.login()" }
+          %i.icon-github
+            Sign in with Github

@@ -6,6 +6,7 @@ module.directive "plunkerPanel", [ "$compile", ($compile) ->
   template: """
     <div class="panel"></div>
   """
+  
   link: ($scope, el, attrs) ->
     child = $compile($scope.panel.template or "")($scope)[0]
     el.append(child)
