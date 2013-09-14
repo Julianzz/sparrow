@@ -1,4 +1,6 @@
-todomvc.controller 'ToolbarController',($scope, $location, scratch, downloader )->
+module = angular.module("plunker.toolbar", [ "plunker.scratch", "plunker.downloader"])
+
+module.controller 'ToolbarController',($scope, $location, scratch, downloader )->
   $scope.scratch = scratch
 
   # Watch the ownership of the active plunk and change the save text accordingly

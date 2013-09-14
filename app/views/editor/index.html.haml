@@ -70,10 +70,12 @@
                   |  Thumbed-up 
                 %button.btn.btn-danger.btn-mini{ "ng-click"=>"scratch.plunk.removeThumbsUp()",:title=>"Remove your thumbs-up from this plunk." }
                   %i.icon-thumbs-down
-          .well
+                  
+          .well{ "ng-controller" => "FileBrowserController" }
             %angular-tree{ "data-options"=>"treeOptions",
               "icon-leaf"=>"icon-file", 
               }
+              
           %div{"ng-show"=>"scratch.plunk.user"}
             %hr
             %div.user{"ng-show"=>"scratch.plunk.user"}
