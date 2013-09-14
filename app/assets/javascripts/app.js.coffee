@@ -4,7 +4,13 @@
  * @type {angular.Module}
 ###
  
-@todomvc = angular.module 'todomvc', ["ngResource","plunker.editor","angularBootstrapNavTree"] 
+@todomvc = angular.module 'todomvc', [ 
+  "ngResource",
+  "plunker.editor",
+  "angularBootstrapNavTree",
+  '$angularTree.directives',
+  "plunker.filelist"
+] 
 
 @todomvc.config(["$httpProvider", (provider) ->
   provider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content')

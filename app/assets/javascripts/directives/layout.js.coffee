@@ -3,6 +3,7 @@ module = angular.module("plunker.layout", ["plunker.panels"])
 
 module.directive "plunkerLayout", ["$rootScope", "$location", "$timeout", "panels", ($rootScope, $location, $timeout, panels) ->
   restrict: "A"
+  
   link: ($scope, el, attrs) ->
         
     $scope.panels = panels

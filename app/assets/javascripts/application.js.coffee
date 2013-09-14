@@ -21,5 +21,6 @@
 #= require_tree ./directives
 #= require_tree ./services
 
+#= require ./angular_tree
 
 

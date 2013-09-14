@@ -1,4 +1,4 @@
-todomvc.controller "ApplicationController", ($scope) ->
+todomvc.controller "ApplicationController", ($scope, fileList ) ->
   $scope.person = { name: "Ari Lerner" }
   updateClock = ->
     $scope.clock = new Date()
@@ -14,15 +14,18 @@ todomvc.controller "ApplicationController", ($scope) ->
     # expandedIconClass: 'icon-minus'
     # collapsedIconClass: 'icon-plus'
 
-    getChildren: (node, cb) ->
-      cb [
-        { label: 'hello' }
-        { label: 'hi' }
-      ]
+    getChildren: (node, callback) ->
+      searchPath = if node and node.path  then node.path else "/"
+      fileList searchPath, (err, files ) ->
+        return if err 
+        callback files
+      
+    
     onLabelClick: (node) ->
       $scope.logs = [
         { text: 'selected: ' + JSON.stringify(label:node.label, level:node.level) }
       ].concat $scope.logs
+      
     onExpanderClick: (node) ->
       $scope.logs = [
         {text: (if node.expanded then 'expanded' else 'collapsed') + ': ' + JSON.stringify(label:node.label, level:node.level)}
